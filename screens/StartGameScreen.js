@@ -1,22 +1,50 @@
-import { StyleSheet, View, TextInput } from "react-native";
+import { useState } from "react";
+import { StyleSheet, View, TextInput, Alert } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
+import Colors from "../constant/colors";
 
-const StartGameScreen = () => {
+const StartGameScreen = (props) => {
+  const [enteredNumber, setEnteredNumber] = useState("");
+
+  const numberInputHandler = (input) => {
+    setEnteredNumber(input);
+  };
+
+  const resetInputHandler = () => {
+    setEnteredNumber("");
+  };
+
+  const confirmInputHandler = () => {
+    const choosenNumber = parseInt(enteredNumber);
+    if (isNaN(choosenNumber) || choosenNumber <= 0 || choosenNumber > 99) {
+      //show alert
+      Alert.alert("Không hợp lệ", "Hãy nhập số trong khoảng từ 1 đến 99", [
+        { text: "OK", style: "destructive", onPress: resetInputHandler },
+      ]);
+      return;
+    }
+    props.onPickNumber(choosenNumber);
+  };
+
   return (
-    <View style={styles.inputContainer}>
-      <TextInput
-        style={styles.numberInput}
-        maxLength={2}
-        keyboardType="number-pad"
-        autoCapitalize="none"
-        autoCorrect={false}
-      />
-      <View style={styles.buttonsContainer}>
-        <View style={styles.singleButtonContainer}>
-          <PrimaryButton>Reset</PrimaryButton>
-        </View>
-        <View style={styles.singleButtonContainer}>
-          <PrimaryButton>Confirm</PrimaryButton>
+    <View style={styles.container}>
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.numberInput}
+          maxLength={2}
+          keyboardType="number-pad"
+          autoCapitalize="none"
+          autoCorrect={false}
+          value={enteredNumber}
+          onChangeText={numberInputHandler}
+        />
+        <View style={styles.buttonsContainer}>
+          <View style={styles.singleButtonContainer}>
+            <PrimaryButton onPress={resetInputHandler}>Reset</PrimaryButton>
+          </View>
+          <View style={styles.singleButtonContainer}>
+            <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
+          </View>
         </View>
       </View>
     </View>
@@ -24,6 +52,10 @@ const StartGameScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+  },
   inputContainer: {
     justifyContent: "center",
     alignItems: "center",
@@ -31,7 +63,7 @@ const styles = StyleSheet.create({
     marginTop: 100,
     marginHorizontal: 24,
     borderRadius: 8,
-    backgroundColor: "#4e0329",
+    backgroundColor: Colors.Red_3rd,
     //add shadow - Android props only
     elevation: 8,
     //
@@ -46,9 +78,9 @@ const styles = StyleSheet.create({
     height: 50,
     width: 50,
     fontSize: 32,
-    borderBottomColor: "#ddb52f",
+    borderBottomColor: Colors.primaryYellow,
     borderBottomWidth: 2,
-    color: "#ddb52f",
+    color: Colors.primaryYellow,
     marginVertical: 8,
     fontWeight: "bold",
     textAlign: "center",
