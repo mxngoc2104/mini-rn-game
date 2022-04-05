@@ -1,6 +1,12 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 
-const GameOverScreen = () => {};
+const GameOverScreen = () => {
+    return (
+        <View>
+            <Text>Game is over</Text>
+        </View>
+    )
+};
 
 const styles = StyleSheet.create({});
 

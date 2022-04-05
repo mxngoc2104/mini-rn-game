@@ -1,5 +1,5 @@
 import { StyleSheet, View, Text, Pressable } from "react-native";
-import Colors from "../constant/colors"
+import Colors from "../../constant/colors"
 
 const PrimaryButton = ({ children, onPress }) => {
   return (
@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "white",
     textAlign: "center",
+    fontSize: 24,
   },
   pressed: {
     opacity: 0.75,

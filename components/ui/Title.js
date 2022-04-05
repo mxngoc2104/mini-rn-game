@@ -12,8 +12,9 @@ const styles = StyleSheet.create({
     textAlign: "center",
     borderWidth: 2,
     borderColor: "#D93B3B",
+    borderRadius: 45,
     padding: 12,
-    marginBottom: 24,
+    marginVertical: 24,
   },
 });
 
