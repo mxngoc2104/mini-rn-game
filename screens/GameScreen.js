@@ -3,6 +3,8 @@ import { StyleSheet, View, Text, Alert } from "react-native";
 import Title from "../components/ui/Title";
 import PrimaryButton from "../components/ui/PrimaryButton";
 import NumberContainer from "../components/game/NumberContainer";
+import Card from "../components/ui/Card";
+import InstructionText from "../components/ui/InstructionText";
 
 const generateRandomBetween = (min, max, exclude) => {
   const randomNum = Math.floor(Math.random() * (max - min)) + min;
@@ -31,8 +33,8 @@ const GameScreen = ({ userNumber, onGameOver }) => {
       (direction === "lower" && currentGuess < userNumber) ||
       (direction === "greater" && currentGuess > userNumber)
     ) {
-      Alert.alert("Ảo thật đấy!", "Bạn biết mình đang nói dối mà ^_^", [
-        { text: "Xin Nhỗi", style: "cancel" },
+      Alert.alert("Sai rồi", "Bạn biết mình đang nói dối mà ^_^", [
+        { text: "OK", style: "cancel" },
       ]);
       return;
     }
@@ -55,21 +57,23 @@ const GameScreen = ({ userNumber, onGameOver }) => {
     <View style={styles.screen}>
       <Title>Lượt máy đoán</Title>
       <NumberContainer>{currentGuess}</NumberContainer>
-      <View>
-        <Text>Higher or Lower?</Text>
+      <Card>
+        <InstructionText style={styles.instructionText}>
+          Thấp hơn hay cao hơn?
+        </InstructionText>
         <View style={styles.buttonsContainer}>
           <View style={styles.singleButtonContainer}>
             <PrimaryButton onPress={nextGuessHandler.bind(this, "lower")}>
-              -
+              Thấp hơn
             </PrimaryButton>
           </View>
           <View style={styles.singleButtonContainer}>
             <PrimaryButton onPress={nextGuessHandler.bind(this, "greater")}>
-              +
+              Cao hơn
             </PrimaryButton>
           </View>
         </View>
-      </View>
+      </Card>
       {/* <View>
                 Log Round
             </View> */}
@@ -80,13 +84,17 @@ const GameScreen = ({ userNumber, onGameOver }) => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    padding: 24,
+    padding: 12,
     paddingTop: 36,
+  },
+  instructionText: {
+    marginBottom: 12,
   },
   buttonsContainer: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
+    marginTop: 5,
   },
   singleButtonContainer: {
     flex: 1,

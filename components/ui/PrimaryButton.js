@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "white",
     textAlign: "center",
-    fontSize: 24,
+    fontSize: 16,
   },
   pressed: {
     opacity: 0.75,
