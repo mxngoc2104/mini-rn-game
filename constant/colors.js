@@ -4,7 +4,11 @@ const Colors = {
     Red_3rd: "#4e0329",
     primaryYellow: "#ddb52f",
     titleColor: "#D93B3B",
-    primaryBlue: "#DC7633",
+    primaryOrange: "#DC7633",
+    pink: '#DB7093',
+    Pink_2nd: "#C71585",
+
+
 };
 
 export default Colors;

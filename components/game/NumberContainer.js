@@ -14,16 +14,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderWidth: 4,
-    borderColor: '#C71585',
+    borderColor: Colors.Pink_2nd,
     borderRadius: 8,
     padding: 24,
     margin: 24,
-    backgroundColor: '#DB7093',
+    backgroundColor: Colors.pink,
   },
   text: {
-    color: 'white',
+    color: "white",
     fontSize: 36,
-    fontWeight: "bold",
+    fontFamily: "open-sans-bold",
   },
 });
 

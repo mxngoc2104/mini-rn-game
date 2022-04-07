@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
-import { StyleSheet, View, Text, Alert } from "react-native";
+import { StyleSheet, View, Text, Alert, FlatList } from "react-native";
+
 import Title from "../components/ui/Title";
 import PrimaryButton from "../components/ui/PrimaryButton";
 import NumberContainer from "../components/game/NumberContainer";
 import Card from "../components/ui/Card";
 import InstructionText from "../components/ui/InstructionText";
+import GuessLogItem from "../components/game/GuessLogItem";
 
 const generateRandomBetween = (min, max, exclude) => {
   const randomNum = Math.floor(Math.random() * (max - min)) + min;
@@ -21,12 +23,18 @@ let maxBoundary = 100;
 const GameScreen = ({ userNumber, onGameOver }) => {
   const initGuess = generateRandomBetween(1, 100, userNumber);
   const [currentGuess, setCurrentGuess] = useState(initGuess);
+  const [guessRounds, setGuessRounds] = useState([initGuess]);
 
   useEffect(() => {
     if (currentGuess === userNumber) {
-      onGameOver();
+      onGameOver(guessRounds.length);
     }
   }, [currentGuess, userNumber, onGameOver]);
+
+  useEffect(() => {
+    minBoundary = 1;
+    maxBoundary = 100;
+  }, []);
 
   const nextGuessHandler = (direction) => {
     if (
@@ -51,7 +59,10 @@ const GameScreen = ({ userNumber, onGameOver }) => {
       currentGuess
     );
     setCurrentGuess(newRandNum);
+    setGuessRounds((prevGuessRounds) => [newRandNum, ...prevGuessRounds]);
   };
+
+  const guessRoundsListLength = guessRounds.length;
 
   return (
     <View style={styles.screen}>
@@ -74,9 +85,18 @@ const GameScreen = ({ userNumber, onGameOver }) => {
           </View>
         </View>
       </Card>
-      {/* <View>
-                Log Round
-            </View> */}
+      <View style={styles.listContainer}>
+        <FlatList
+          data={guessRounds}
+          renderItem={(itemData) => (
+            <GuessLogItem
+              roundNumber={guessRoundsListLength - itemData.index}
+              guess={itemData.item}
+            />
+          )}
+          keyExtractor={(item) => item}
+        />
+      </View>
     </View>
   );
 };
@@ -99,6 +119,10 @@ const styles = StyleSheet.create({
   singleButtonContainer: {
     flex: 1,
   },
+  listContainer: {
+    flex: 1,
+    padding: 16,
+  }
 });
 
 export default GameScreen;

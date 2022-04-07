@@ -37,7 +37,7 @@ const StartGameScreen = (props) => {
       />
       <Card>
         <InstructionText>Hãy nhập số trong khoảng</InstructionText>
-        <InstructionText>Từ 1 đến 99</InstructionText>
+        <InstructionText>từ 1 đến 99</InstructionText>
         <TextInput
           style={styles.numberInput}
           maxLength={2}
